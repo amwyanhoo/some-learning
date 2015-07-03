@@ -199,8 +199,14 @@ using namespace std;
 //
 //void del(char *p,char c);
 //id u2d(char *p);
+//
+//void sta(char *p);
 
-void sta(char *p);
+struct someday{
+	int year;
+	int mouth;
+	int day;
+};
 int main(){
 //	while(--argc>0){
 //		cout<<argv[argc]<<endl;
@@ -349,9 +355,85 @@ int main(){
 //	for(int i=0;i<4;i++){
 //		cout<<p[i]<<" ";
 //	}
+//
+//	int sum(int *p,int len);
+//	int a[3]={1,2,3};
+//	cout<<sum(a,3);
+//
+//	int a[5][4]={	{73,64,99,23},
+//					{85,99,76,77},
+//					{93,83,91,87},
+//					{77,73,72,62},
+//					{92,99,91,95}};
+//	int *p[5];
+//	for(int i=0;i<5;i++){
+//		p[i]=a[i];
+//	}
+//	int *max=p[0];
+//	for(int i=0;i<5;i++){
+//		if(*p[i]>*max){
+//			max=p[i];
+//		}
+//	}
+//	cout<<"第一门成绩的最高分是："<<*max<<endl;
+//	float mean1[5],mean2[5];//mean1是每个学生的平均分，mean2是每门课的平均分
+//	int sum1[5]={0,0,0,0,0},sum2[4]={0,0,0,0};
+//	//求每个学生平均分
+//	cout<<"**************************"<<endl;
+//	for(int j=0;j<5;j++){
+//		for(int i=0;i<4;i++){
+//			sum1[j]+=*(p[j] + i);
+//		}
+//		mean1[j] = sum1[j]/4.0;
+//		cout<<"第"<<j+1<<"个人的平均分是："<<mean1[j]<<endl;
+//		if(mean1[j]>=85){
+//			for(int k=0;k<4;k++){
+//				cout<<*(p[j]+k)<<" ";
+//
+//			}
+//			cout<<"   其平均分为："<<mean1[j];
+//		}
+//	}
+//	//求每门课平均成绩：
+//	cout<<"**************************"<<endl;
+//	for(int i=0;i<4;i++){
+//		for(int j=0;j<5;j++){
+//			sum2[i]+=*(p[j]+i);
+//		}
+//		mean2[i]=sum2[i]/5.0;
+//		cout<<"第"<<i<<"门课成绩的平均分为："<<mean2[i]<<endl;
+//	}
+//	//统计每个同学不及格课程的门数
+//	cout<<"**************************"<<endl;
+//	int fail[5]={0,0,0,0,0};
+//	for(int i=0;i<5;i++){
+//		for(int j=0;j<4;j++){
+//			if(*(p[i]+j)<90){
+//				fail[i]++;
+//			}
+//		}
+//		cout<<"第"<<i<<"个同学少于90分的门数为："<<fail[i]<<endl;
+//	}
 
+	//判断当前年月日为当年哪一天
+	someday oneday;
+	oneday.year=2004;
+	oneday.mouth=3;
+	oneday.day=31;
+	int Nmonth[13]={0,31,28,31,30,31,30,31,31,30,31,30,31},sum=0;
+	int *pNum=Nmonth;
+	someday *p=&oneday;
 
-
+	//cout<<oneday.year;
+	//判断是否为闰年
+	if(((oneday.year%4==0)&&(oneday.year%100!=0))||(oneday.year%400==0)){
+		Nmonth[2]=29;
+	}
+	for(int i=1;i<(*p).mouth;i++){
+		sum+=pNum[i];
+	}
+		sum+=(*p).day;
+	cout<<sum;
 	return 0;
 }
 //void swap(int *p,int *q){
@@ -521,4 +603,16 @@ int main(){
 //	cout<<"小写字母的个数是："<<j<<endl;
 //	cout<<"数字的个数是："<<k<<endl;
 //	cout<<"其他字母的个数是："<<m<<endl;
+//}
+//
+//
+//	//第6章指针第10题
+//int sum(int *p,int len){
+//	int sume=0,i=0;
+//	while(i<len){
+//		sume+=*p;
+//		p++;
+//		i++;
+//	}
+//	return sume;
 //}
