@@ -299,11 +299,59 @@ int main(){
 //	}else{
 //		cout<<"Input Error";
 //	}
-
-	char str[]="QWEcdfy1123@#";
+//
+//	char str[]="QWEcdfy1123@#";
 //	cout<<(int('a')-int('A'));
 //	cout<<char(int('a')-32);
-	sta(str);
+//	sta(str);
+//
+//	char *q[4]={"abc","123","xyz","ijk"};
+//	char **p=q;
+//	char *pMax=q[0];
+//	cout<<&q[3]<<endl;
+//	cout<<q[3]<<endl;
+//	while(p<=&q[3]){
+//		if(strcmp(pMax,*p)<0){
+//			pMax=*p;
+//		}
+//		p++;
+//	}
+//	cout<<pMax;
+//
+//	//多个字条串排序方法一：
+//	char *p[]={"amw","dbm","jjko","jjd"};
+//	for(int i=0;i<=2;i++){
+//		int k=i;//k是用来存储最小元素下标
+//		for(int j=i+1;j<=3;j++){
+//			if(strcmp(p[j],p[k])<0){
+//				k=j;
+//			}
+//			if(k!=i){
+//				char *q;
+//				q=p[i];
+//				p[i]=p[k];
+//				p[k]=q;
+//			}
+//		}
+//	}
+//	//多个字条串排序方法2：
+//	char *p[]={"dbm","amw","jjko","jjd"};
+//	char *q;
+//	for(int i=4;i>0;i--){
+//		for(int j=0;j<i-1;j++){
+//			if(strcmp(p[j],p[j+1])>0){
+//				q=p[j];
+//				p[j]=p[j+1];
+//				p[j+1]=q;
+//			}
+//		}
+//	}
+//	for(int i=0;i<4;i++){
+//		cout<<p[i]<<" ";
+//	}
+
+
+
 	return 0;
 }
 //void swap(int *p,int *q){
@@ -454,23 +502,23 @@ int main(){
 //		}
 //	}
 //}
-
+//
 //统计各种字符串的个数
-void sta(char *p){
-	int i=0,j=0,k=0,m=0;
-	for(;*p!='\0';p++){
-		if((int(*p) > 64) && (int(*p)) < 91){
-			i++;
-		}else if (*p>='a'&&*p<='z') {
-			j++;
-		}else if (*p>='0'&&*p<='9') {
-			k++;
-		}else{
-			m++;
-		}
-	}
-	cout<<"大写字母的个数是："<<i<<endl;
-	cout<<"小写字母的个数是："<<j<<endl;
-	cout<<"数字的个数是："<<k<<endl;
-	cout<<"其他字母的个数是："<<m<<endl;
-}
+//void sta(char *p){
+//	int i=0,j=0,k=0,m=0;
+//	for(;*p!='\0';p++){
+//		if((int(*p) > 64) && (int(*p)) < 91){
+//			i++;
+//		}else if (*p>='a'&&*p<='z') {
+//			j++;
+//		}else if (*p>='0'&&*p<='9') {
+//			k++;
+//		}else{
+//			m++;
+//		}
+//	}
+//	cout<<"大写字母的个数是："<<i<<endl;
+//	cout<<"小写字母的个数是："<<j<<endl;
+//	cout<<"数字的个数是："<<k<<endl;
+//	cout<<"其他字母的个数是："<<m<<endl;
+//}
