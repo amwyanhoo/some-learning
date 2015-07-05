@@ -1,6 +1,5 @@
 #include <iostream>
-#include <windows.h>
-#include <cmath>
+#include "fraction.h"
 using namespace std;
 
 //class CLOCK{//class <类名>
@@ -254,30 +253,77 @@ using namespace std;
 //	return 0;
 //}
 
-class Date{
-public:
-	int year,month,day;
-	void add(int n);
-	void show(){
-		cout<<year<<" "<<month<<" "<<day<<endl;
-	}
-};
+//class Date{
+//public:
+//	int year,month,day;
+//	void add(int n);
+//	void show(){
+//		cout<<year<<" "<<month<<" "<<day<<endl;
+//	}
+//};
+//
+//int main(){
+//
+//	Date today,tomorrow;
+//	Date *r;//与指向变量的指针形式一样，用法一样，为  <类名> *<对象指针名>
+//	r=&tomorrow;//指针的赋值也与变量一样！
+//	int *p,*q;
+//	p=&today.day;//指向类成员的指针
+//	q=&(r->day);
+//
+//	void (Date:: *o)();//指向成员函数的指针。格式为  <数据类型>  (<类名>::*<指针变量名>)(参数列表)
+//	o=&Date::show;//赋值形式。格式为<指针变量名>=<类名>::<成员函数名>;
+//	*p=25;
+//	*q=28;
+//	(*r).show();//很好使用，与指向变量指针
+////	today.show();
+//	(today.*o)();//指向成员函数的指针的使用形式！
+//	return 0;
+//}
+
+//int main(){
+//	int p=4453,q=5767;
+//	int tmp1,c,d;
+//	if(p<q){//保证p一定大于q
+//		tmp1=p;
+//		p=q;
+//		q=tmp1;
+//	}
+//	while (c != 0) {
+//		c = p % q;
+//		p = q;
+//		d=q;
+//		q = c;
+//	}
+//	cout<<d;
+//	return 0;
+//}
+
 
 int main(){
-
-	Date today,tomorrow;
-	Date *r;//与指向变量的指针形式一样，用法一样，为  <类名> *<对象指针名>
-	r=&tomorrow;//指针的赋值也与变量一样！
-	int *p,*q;
-	p=&today.day;//指向类成员的指针
-	q=&(r->day);
-
-	void (Date:: *o)();//指向成员函数的指针。格式为  <数据类型>  (<类名>::*<指针变量名>)(参数列表)
-	o=&Date::show;//赋值形式。格式为<指针变量名>=<类名>::<成员函数名>;
-	*p=25;
-	*q=28;
-	(*r).show();//很好使用
-//	today.show();
-	(today.*o)();//指向成员函数的指针的使用形式！
-	return 0;
+	Fraction f1(1,4),f2(5,6),f3;
+	int a,b,c,d;
+	cout<<"本程序实现分数的加法，例如\n";
+	f1.show();
+	cout<<"+";
+	f2.show();
+	f3=f1.add(f2);
+	cout<<"=";
+	f3.show();
+	while(1){
+		cout<<"\n请分别输入两个分数的分子和分母，分母为0时退出\n";
+		cin>>a>>b;
+		cin>>c>>d;
+		if(b==0||d==0){
+			break;
+		}
+		f1.set(a,b);
+		f2.set(c,d);
+		f1.show();
+		cout << "+";
+		f2.show();
+		f3 = f1.add(f2);
+		cout << "=";
+		f3.show();
+	}
 }
