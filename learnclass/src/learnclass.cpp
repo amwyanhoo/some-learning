@@ -1,5 +1,6 @@
 #include <iostream>
-#include "fraction.h"
+//#include "fraction.h"
+#include "StuInfo.h"
 using namespace std;
 
 //class CLOCK{//class <类名>
@@ -299,31 +300,53 @@ using namespace std;
 //	return 0;
 //}
 
+//int main(){
+//	Fraction f1(1,4),f2(5,6),f3;
+//	int a,b,c,d;
+//	cout<<"本程序实现分数的加法，例如\n";
+//	f1.show();
+//	cout<<"+";
+//	f2.show();
+//	f3=f1.add(f2);
+//	cout<<"=";
+//	f3.show();
+//	while(1){
+//		cout<<"\n请分别输入两个分数的分子和分母，分母为0时退出\n";
+//		cin>>a>>b;
+//		cin>>c>>d;
+//		if(b==0||d==0){
+//			break;
+//		}
+//		f1.set(a,b);
+//		f2.set(c,d);
+//		f1.show();
+//		cout << "+";
+//		f2.show();
+//		f3 = f1.add(f2);
+//		cout << "=";
+//		f3.show();
+//	}
+//}
 
+//例7.6.1
 int main(){
-	Fraction f1(1,4),f2(5,6),f3;
-	int a,b,c,d;
-	cout<<"本程序实现分数的加法，例如\n";
-	f1.show();
-	cout<<"+";
-	f2.show();
-	f3=f1.add(f2);
-	cout<<"=";
-	f3.show();
-	while(1){
-		cout<<"\n请分别输入两个分数的分子和分母，分母为0时退出\n";
-		cin>>a>>b;
-		cin>>c>>d;
-		if(b==0||d==0){
-			break;
-		}
-		f1.set(a,b);
-		f2.set(c,d);
-		f1.show();
-		cout << "+";
-		f2.show();
-		f3 = f1.add(f2);
-		cout << "=";
-		f3.show();
+
+	StuInfo tongxin[5];
+	int I;
+	char nam[10];
+	float p,n,d;
+	for(int i=0;i<5;i++){
+		cout<<"请输入第"<<i+1<<"个学生Id,姓名，三门课的成绩\n";
+		cin>>I>>nam>>p>>n>>d;
+		tongxin[i].set(I,nam,p,n,d);
 	}
+	tongxin[0].sort(tongxin,5);
+	cout<<"学号\t姓名\t程序成绩\t网络成绩\t数据库成绩\t总成绩\n";
+	for(int i=0;i<5;i++){
+		cout<<"------------------------------\n";
+		tongxin[i].show();
+		cout<<endl;
+	}
+	cout << "------------------------------\n";
+	return 0;
 }
