@@ -368,50 +368,24 @@ private:
 	bool IsLeapyear();
 	bool IsEndofMonth();
 	void IncDay();
-	int DayCalc();
 public:
+	int DayCalc();
 	Date(int y=1900,int m=1,int d=1);
 	void SetDate(int yy,int mm,int dd);
 	void AddDay(int);
 	int Daysof2Date(Date ymd);
 	void print_ymd();
 	void print_mdy();
-//
-//	Date(){
-//		year=2015;
-//		month=07;
-//		day=20;
-//	}
-//	Date(int y,int m,int d){
-//		year=y;
-//		month=m;
-//		day=d;
-//	}
-//	Date(Date d){
-//		year=d.year;
-//		month=d.month;
-//		day=d.day;
-//	}
-//
-//	void showymd(){
-//		cout<<year<<"."<<month<<"."<<day<<endl;
-//	}
-//	void showmdy(){
-//		cout<<month<<"."<<day<<"."<<year<<endl;
-//	}
-//
-//	int esomeday(int i){
-//
-//	}
 };
 
 
-Date::Date(int y,int m,int d){
+Date::Date(int y,int m,int d){//记住，构造函数直接调用设置函数！
 	SetDate(y,m,d);
 }
 void Date::SetDate(int yy,int mm,int dd){
 	month=((mm>=1&&mm<12)?mm:1);
 	year=(yy>=1900)?yy:1900;
+	//year=yy;
 	switch(month){
 	case 4:
 	case 6:
@@ -433,70 +407,77 @@ void Date::SetDate(int yy,int mm,int dd){
 }
 
 bool Date::IsLeapyear(){
-	if(((year%4==0)&&(year%100!=0))||(year%400==0)){
+	if(((year%4==0)&&(year%100!=0))||(year%400==0)){//闰年判断条件
 		return 1;
 	}else {
 		return 0;
 	}
 }
 
-bool Date::IsEndofMonth() {
+bool Date::IsEndofMonth() {//月末判断
 	switch (month) {
 	case 4:
 	case 6:
 	case 9:
 	case 11:
-		return (month == 30);
+		return (day == 30);
 		break;
 	case 2:
 		if (IsLeapyear()) {
-			return (month==29);
+			return (day==29);
 		} else {
-			return (month==28);
+			return (day==28);
 		}
 		break;
 	default:
-		return (month==31);
+		return (day==31);
 	}
 }
 
-void Date::IncDay(){
+void Date::IncDay(){//天数加1的处理方法
 	if(IsEndofMonth()){
-		if(month==12){
+		if(month==12){//年末的最后一天，即12月31日时
 			day=1;
 			month=1;
 			year++;
-		}else if(IsEndofMonth()){
-			day=1;
+		} else {//当月最后一天
+			day = 1;
 			month++;
-		}else {
-			day++;
 		}
-	}
+	} else {
+		day++;
+		}
 }
 
 void Date::AddDay(int days){
+	/*
+	 * 此处为计算若干天后日期的函数，思想为
+	 * 先实现1天后的日期，通过循环调用，计算N天后的日期。*/
 	for(int i=0;i<days;i++){
 		IncDay();
 	}
 }
 
 int Date::DayCalc(){
+	/*
+	 * 计算两个日期之间的间隔天数思想：
+	 * 先分别计算两个日期与公元1年相差的天数，两个相减就是相差的天数
+	 * */
 	int monthdays[13]={0,31,28,31,30,31,30,31,31,30,31,30,31};
 	int yy,leaps,days,i;
 	yy=year-1;
 	days=yy*365;
-	leaps=yy/4-yy/100+yy/400;
-	days+=leaps;
+	leaps=yy/4-yy/100+yy/400;//计算公元1-1-1以来经过的闰年数
+	days+=leaps;//闰年时总天数加1
 
 	if(IsLeapyear()){
 		monthdays[2]=29;
 	}
 	for(i=1;i<month;i++){
-		day+=monthdays[i];
+		days+=monthdays[i];
+	}
 		days+=day;
 		return days;
-	}
 }
 
 int Date::Daysof2Date(Date oneday){
@@ -527,6 +508,35 @@ int main(){
 	cout<<"the current date is :"<<endl;
 	date1.print_ymd();
 //	date1.print_mdy();
-	date1.AddDay(3);
-	date1.print_ymd();
+//	date1.AddDay(100);
+//	date1.print_ymd();
+	Date date2(2008,8,24);
+//
+//	cout<<"And before "<<date1.Daysof2Date(date2);
+//	cout<<" days,the Beijing Olympic Game had been over."<<endl;
+
+//————————————————————用户输入数据————————————————————
+//	cout<<"请输入年月日\n";
+//	cin>>year>>month>>day;
+//	cout<<"请输入天数\n";
+//	cin>>N;
+
+//	date1.SetDate(year,month,day);
+//	cout<<"the date you input is :"<<endl;
+//	date1.print_ymd();
+//	date1.AddDay(N);
+//	cout<<"After "<<N<<" days, the date is: ";
+//	date1.print_ymd();
+//	cout<<endl;
+
+	cout<<"请输入第一个日期\n";
+	cin>>year>>month>>day;
+	date1.SetDate(year,month,day);
+	cout<<"请输入第二个日期\n";
+	cin>>year>>month>>day;
+	date2.SetDate(year,month,day);
+	cout<<"两个日期间隔天数为： ";
+	cout<<date1.Daysof2Date(date2)<<endl;
+
+	return 0;
 }
