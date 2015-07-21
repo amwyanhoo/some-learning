@@ -20,5 +20,5 @@ public:
 	}
 	void sort(StuInfo *s,int N);
 	void show();
-	bool Isbig(int Kk);
+	bool Isbig(int K);
 };

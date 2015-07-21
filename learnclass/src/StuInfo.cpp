@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cstring>
 #include "StuInfo.h"
 using namespace std;
 
@@ -34,5 +33,13 @@ void StuInfo::sort(StuInfo *s,int N){
 				s[j+1]=tmp;
 			}
 		}
+	}
+}
+
+bool StuInfo::Isbig(int K){
+	if(prog>K&&net>K&&db>K){
+		return true;
+	}else{
+		return false;
 	}
 }

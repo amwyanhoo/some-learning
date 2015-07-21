@@ -1,6 +1,7 @@
 #include <iostream>
 //#include "fraction.h"
-#include "StuInfo.h"
+//#include "StuInfo.h"
+#include <cmath>
 using namespace std;
 
 //class CLOCK{//class <类名>
@@ -72,7 +73,7 @@ using namespace std;
 ////	c1.Show();
 //	return 0;
 //}
-
+//
 //例7-5
 //
 //class Npoint{
@@ -201,7 +202,7 @@ using namespace std;
 //	cout << "distance p1-p3: " << p1.distance(p3) << endl;
 //	return 0;
 //}
-
+//
 //class Point{
 //private:
 //	int x;
@@ -253,7 +254,7 @@ using namespace std;
 //
 //	return 0;
 //}
-
+//
 //class Date{
 //public:
 //	int year,month,day;
@@ -281,7 +282,7 @@ using namespace std;
 //	(today.*o)();//指向成员函数的指针的使用形式！
 //	return 0;
 //}
-
+//
 //int main(){
 //	int p=4453,q=5767;
 //	int tmp1,c,d;
@@ -299,7 +300,7 @@ using namespace std;
 //	cout<<d;
 //	return 0;
 //}
-
+//
 //int main(){
 //	Fraction f1(1,4),f2(5,6),f3;
 //	int a,b,c,d;
@@ -327,26 +328,205 @@ using namespace std;
 //		f3.show();
 //	}
 //}
-
+//
 //例7.6.1
-int main(){
+//int main(){
+//
+//	StuInfo tongxin[5];
+//	int I;
+//	char nam[10];
+//	float p,n,d;
+//	for(int i=0;i<5;i++){
+//		cout<<"请输入第"<<i+1<<"个学生Id,姓名，三门课的成绩\n";
+//		cin>>I>>nam>>p>>n>>d;
+//		tongxin[i].set(I,nam,p,n,d);
+//	}
+//	tongxin[0].sort(tongxin,5);
+//	cout<<"学号\t姓名\t程序成绩\t网络成绩\t数据库成绩\t总成绩\n";
+//	for(int i=0;i<5;i++){
+//		cout<<"------------------------------\n";
+//		tongxin[i].show();
+//		cout<<endl;
+//	}
+//	cout << "------------------------------\n";
+//	//判断是否大于85.
+//	for(int i=0;i<5;i++){
+//		if(tongxin[i].Isbig(85)){
+//			tongxin[i].show();
+//			cout<<endl;
+//		}
+//	}
+//	return 0;
+//}
 
-	StuInfo tongxin[5];
-	int I;
-	char nam[10];
-	float p,n,d;
-	for(int i=0;i<5;i++){
-		cout<<"请输入第"<<i+1<<"个学生Id,姓名，三门课的成绩\n";
-		cin>>I>>nam>>p>>n>>d;
-		tongxin[i].set(I,nam,p,n,d);
+
+//eg7-9
+
+class Date{
+private:
+	int year,month,day;
+	bool IsLeapyear();
+	bool IsEndofMonth();
+	void IncDay();
+	int DayCalc();
+public:
+	Date(int y=1900,int m=1,int d=1);
+	void SetDate(int yy,int mm,int dd);
+	void AddDay(int);
+	int Daysof2Date(Date ymd);
+	void print_ymd();
+	void print_mdy();
+//
+//	Date(){
+//		year=2015;
+//		month=07;
+//		day=20;
+//	}
+//	Date(int y,int m,int d){
+//		year=y;
+//		month=m;
+//		day=d;
+//	}
+//	Date(Date d){
+//		year=d.year;
+//		month=d.month;
+//		day=d.day;
+//	}
+//
+//	void showymd(){
+//		cout<<year<<"."<<month<<"."<<day<<endl;
+//	}
+//	void showmdy(){
+//		cout<<month<<"."<<day<<"."<<year<<endl;
+//	}
+//
+//	int esomeday(int i){
+//
+//	}
+};
+
+
+Date::Date(int y,int m,int d){
+	SetDate(y,m,d);
+}
+void Date::SetDate(int yy,int mm,int dd){
+	month=((mm>=1&&mm<12)?mm:1);
+	year=(yy>=1900)?yy:1900;
+	switch(month){
+	case 4:
+	case 6:
+	case 9:
+	case 11:
+		day=(dd>=1&&dd<=30)?dd:1;
+		break;
+	case 2:
+		if(IsLeapyear()){
+			day=(dd>=1&&dd<=29)?dd:1;
+		}else {
+			day=(dd>=1&&dd<=28)?dd:1;
+		}
+		break;
+	default:
+		day=(dd>=1&&dd<=31)?dd:1;
+
 	}
-	tongxin[0].sort(tongxin,5);
-	cout<<"学号\t姓名\t程序成绩\t网络成绩\t数据库成绩\t总成绩\n";
-	for(int i=0;i<5;i++){
-		cout<<"------------------------------\n";
-		tongxin[i].show();
-		cout<<endl;
+}
+
+bool Date::IsLeapyear(){
+	if(((year%4==0)&&(year%100!=0))||(year%400==0)){
+		return 1;
+	}else {
+		return 0;
 	}
-	cout << "------------------------------\n";
-	return 0;
+}
+
+bool Date::IsEndofMonth() {
+	switch (month) {
+	case 4:
+	case 6:
+	case 9:
+	case 11:
+		return (month == 30);
+		break;
+	case 2:
+		if (IsLeapyear()) {
+			return (month==29);
+		} else {
+			return (month==28);
+		}
+		break;
+	default:
+		return (month==31);
+	}
+}
+
+void Date::IncDay(){
+	if(IsEndofMonth()){
+		if(month==12){
+			day=1;
+			month=1;
+			year++;
+		}else if(IsEndofMonth()){
+			day=1;
+			month++;
+		}else {
+			day++;
+		}
+	}
+}
+
+void Date::AddDay(int days){
+	for(int i=0;i<days;i++){
+		IncDay();
+	}
+}
+
+int Date::DayCalc(){
+	int monthdays[13]={0,31,28,31,30,31,30,31,31,30,31,30,31};
+	int yy,leaps,days,i;
+	yy=year-1;
+	days=yy*365;
+	leaps=yy/4-yy/100+yy/400;
+	days+=leaps;
+
+	if(IsLeapyear()){
+		monthdays[2]=29;
+	}
+	for(i=1;i<month;i++){
+		day+=monthdays[i];
+		days+=day;
+		return days;
+	}
+}
+
+int Date::Daysof2Date(Date oneday){
+	int days;
+	days=abs(DayCalc()-oneday.DayCalc());
+	return days;
+}
+
+void Date::print_ymd(){
+	cout<<year<<"-"<<month<<"-"<<day<<endl;
+}
+
+void Date::print_mdy(){
+	char *monthName[13]={"","January","February","March","April","May","June","July","August","September",
+			"October","Novenber","December"};
+	cout<<monthName[month]<<" "<<day<<","<<year<<endl;
+}
+
+//---------------main function-------------------------
+//功能有：计算若干天后的日期，计算两个日期相差的天数
+int main(){
+	Date date1;
+	int year,month,day;
+	int N;
+
+	date1.SetDate(2013,1,27);
+	cout<<"本程序演示日期的计算\n";
+	cout<<"the current date is :"<<endl;
+	date1.print_ymd();
+//	date1.print_mdy();
+	date1.AddDay(3);
+	date1.print_ymd();
 }
