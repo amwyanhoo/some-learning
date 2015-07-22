@@ -45,45 +45,126 @@ using namespace std;
 //}
 
 //习题7.2
-class Circle{
+//class Circle{
+//private:
+//	int x1,y1;
+//	int x2,y2;
+//
+//public:
+//	Circle();
+//	Circle(int x1,int y1,int x2,int y2);
+//	double area();
+//	double length();
+//};
+//
+//Circle::Circle(){
+//	x1=0;
+//	y1=0;
+//	x2=1;
+//	y2=1;
+//}
+//Circle::Circle(int x1,int y1,int x2,int y2){
+//	this->x1=x1;
+//	this->y1=y1;
+//	this->x2=x2;
+//	this->y2=y2;
+//}
+//double Circle::area(){
+//	double r;
+//	r=0.5*(sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2)));
+//	return 3.14*r*r;
+//}
+//double Circle::length(){
+//	double r;
+//	r = 0.5*(sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)));
+//	return 2 * 3.14 * r ;
+//}
+//
+//int main(){
+//	Circle c;
+//	cout<<"圆的面积是："<<c.area()<<endl;
+//	cout<<"圆的周长是："<<c.length();
+//	return 0;
+//}
+//
+
+class Triangle{
 private:
-	int x1,y1;
-	int x2,y2;
+	double b1,b2,b3;
 
 public:
-	Circle();
-	Circle(int x1,int y1,int x2,int y2);
+	Triangle(double b1,double b2,double b3);
+	bool Istri();
 	double area();
-	double length();
+	bool Isrig();//直角
+	bool IsAcute();//锐角
+	bool IsObtuse();//钝角
 };
 
-Circle::Circle(){
-	x1=0;
-	y1=0;
-	x2=1;
-	y2=1;
+Triangle::Triangle(double b1,double b2,double b3){
+	this->b1=b1;
+	this->b2=b2;
+	this->b3=b3;
 }
-Circle::Circle(int x1,int y1,int x2,int y2){
-	this->x1=x1;
-	this->y1=y1;
-	this->x2=x2;
-	this->y2=y2;
+bool Triangle::Istri(){
+	if(b1+b2>b3&&b1+b3>b2&&b2+b3>b1){
+		return true;
+	}else{
+		return false;
+	}
 }
-double Circle::area(){
-	double r;
-	r=0.5*(sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2)));
-	return 3.14*r*r;
+
+double Triangle::area(){
+	double p;
+	p=0.5*(b1+b2+b3);
+	return	sqrt(p*(p-b1)*(p-b2)*(p-b3));
 }
-double Circle::length(){
-	double r;
-	r = 0.5*(sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)));
-	return 2 * 3.14 * r ;
+
+bool Triangle::IsAcute(){
+	double a,b,c;
+	a=(b1*b1+b2*b2-b3*b3)/(2*b1*b2);
+	b=(b1*b1+b3*b3-b2*b2)/(2*b1*b3);
+	c=(b2*b2+b3*b3-b1*b1)/(2*b2*b3);
+	if(a>0&&b>0&&c>0){
+		return true;
+	}else{
+		return false;
+	}
+}
+bool Triangle::Isrig(){
+	double a,b,c;
+	a=(b1*b1+b2*b2-b3*b3)/(2*b1*b2);
+	b=(b1*b1+b3*b3-b2*b2)/(2*b1*b3);
+	c=(b2*b2+b3*b3-b1*b1)/(2*b2*b3);
+	if(a==0||b==0||c==0){
+		return true;
+	}else{
+		return false;
+	}
+}
+bool Triangle::IsObtuse(){
+	double a,b,c;
+	a=(b1*b1+b2*b2-b3*b3)/(2*b1*b2);
+	b=(b1*b1+b3*b3-b2*b2)/(2*b1*b3);
+	c=(b2*b2+b3*b3-b1*b1)/(2*b2*b3);
+	if(a<0||b<0||c<0){
+		return true;
+	}else{
+		return false;
+	}
 }
 
 int main(){
-	Circle c;
-	cout<<"圆的面积是："<<c.area()<<endl;
-	cout<<"圆的周长是："<<c.length();
+	Triangle tri1(3,4,5);
+	if(tri1.IsAcute()){
+		cout<<"该三角形是锐角三角形\n";
+	}
+	if(tri1.IsObtuse()){
+		cout<<"该三角形是钝角三角形\n";
+	}
+	if(tri1.Isrig()){
+		cout<<"该三角形是直角三角形\n";
+	}
+	cout<<"该三角形面积是："<<tri1.area();
 	return 0;
 }
-
