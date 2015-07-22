@@ -155,16 +155,20 @@ bool Triangle::IsObtuse(){
 }
 
 int main(){
-	Triangle tri1(3,4,5);
-	if(tri1.IsAcute()){
-		cout<<"该三角形是锐角三角形\n";
+	Triangle tri1(1,4,5);
+	if (tri1.Istri()) {
+		if (tri1.IsAcute()) {
+			cout << "该三角形是锐角三角形\n";
+		}
+		if (tri1.IsObtuse()) {
+			cout << "该三角形是钝角三角形\n";
+		}
+		if (tri1.Isrig()) {
+			cout << "该三角形是直角三角形\n";
+		}
+		cout << "该三角形面积是：" << tri1.area();
+	}else{
+		cout<<"该三条直线不能构成三角形";
 	}
-	if(tri1.IsObtuse()){
-		cout<<"该三角形是钝角三角形\n";
-	}
-	if(tri1.Isrig()){
-		cout<<"该三角形是直角三角形\n";
-	}
-	cout<<"该三角形面积是："<<tri1.area();
 	return 0;
 }
