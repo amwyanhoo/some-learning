@@ -88,87 +88,130 @@ using namespace std;
 //}
 //
 
-class Triangle{
-private:
-	double b1,b2,b3;
+//习题7.3
+//class Triangle{
+//private:
+//	double b1,b2,b3;
+//
+//public:
+//	Triangle(double b1,double b2,double b3);
+//	bool Istri();
+//	double area();
+//	bool Isrig();//直角
+//	bool IsAcute();//锐角
+//	bool IsObtuse();//钝角
+//};
+//
+//Triangle::Triangle(double b1,double b2,double b3){
+//	this->b1=b1;
+//	this->b2=b2;
+//	this->b3=b3;
+//}
+//bool Triangle::Istri(){
+//	if(b1+b2>b3&&b1+b3>b2&&b2+b3>b1){
+//		return true;
+//	}else{
+//		return false;
+//	}
+//}
+//
+//double Triangle::area(){
+//	double p;
+//	p=0.5*(b1+b2+b3);
+//	return	sqrt(p*(p-b1)*(p-b2)*(p-b3));
+//}
+//
+//bool Triangle::IsAcute(){
+//	double a,b,c;
+//	a=(b1*b1+b2*b2-b3*b3)/(2*b1*b2);
+//	b=(b1*b1+b3*b3-b2*b2)/(2*b1*b3);
+//	c=(b2*b2+b3*b3-b1*b1)/(2*b2*b3);
+//	if(a>0&&b>0&&c>0){
+//		return true;
+//	}else{
+//		return false;
+//	}
+//}
+//bool Triangle::Isrig(){
+//	double a,b,c;
+//	a=(b1*b1+b2*b2-b3*b3)/(2*b1*b2);
+//	b=(b1*b1+b3*b3-b2*b2)/(2*b1*b3);
+//	c=(b2*b2+b3*b3-b1*b1)/(2*b2*b3);
+//	if(a==0||b==0||c==0){
+//		return true;
+//	}else{
+//		return false;
+//	}
+//}
+//bool Triangle::IsObtuse(){
+//	double a,b,c;
+//	a=(b1*b1+b2*b2-b3*b3)/(2*b1*b2);
+//	b=(b1*b1+b3*b3-b2*b2)/(2*b1*b3);
+//	c=(b2*b2+b3*b3-b1*b1)/(2*b2*b3);
+//	if(a<0||b<0||c<0){
+//		return true;
+//	}else{
+//		return false;
+//	}
+//}
+//
+//int main(){
+//	Triangle tri1(1,4,5);
+//	if (tri1.Istri()) {
+//		if (tri1.IsAcute()) {
+//			cout << "该三角形是锐角三角形\n";
+//		}
+//		if (tri1.IsObtuse()) {
+//			cout << "该三角形是钝角三角形\n";
+//		}
+//		if (tri1.Isrig()) {
+//			cout << "该三角形是直角三角形\n";
+//		}
+//		cout << "该三角形面积是：" << tri1.area();
+//	}else{
+//		cout<<"该三条直线不能构成三角形";
+//	}
+//	return 0;
+//}
 
-public:
-	Triangle(double b1,double b2,double b3);
-	bool Istri();
-	double area();
-	bool Isrig();//直角
-	bool IsAcute();//锐角
-	bool IsObtuse();//钝角
-};
-
-Triangle::Triangle(double b1,double b2,double b3){
-	this->b1=b1;
-	this->b2=b2;
-	this->b3=b3;
-}
-bool Triangle::Istri(){
-	if(b1+b2>b3&&b1+b3>b2&&b2+b3>b1){
-		return true;
-	}else{
-		return false;
-	}
-}
-
-double Triangle::area(){
-	double p;
-	p=0.5*(b1+b2+b3);
-	return	sqrt(p*(p-b1)*(p-b2)*(p-b3));
-}
-
-bool Triangle::IsAcute(){
-	double a,b,c;
-	a=(b1*b1+b2*b2-b3*b3)/(2*b1*b2);
-	b=(b1*b1+b3*b3-b2*b2)/(2*b1*b3);
-	c=(b2*b2+b3*b3-b1*b1)/(2*b2*b3);
-	if(a>0&&b>0&&c>0){
-		return true;
-	}else{
-		return false;
-	}
-}
-bool Triangle::Isrig(){
-	double a,b,c;
-	a=(b1*b1+b2*b2-b3*b3)/(2*b1*b2);
-	b=(b1*b1+b3*b3-b2*b2)/(2*b1*b3);
-	c=(b2*b2+b3*b3-b1*b1)/(2*b2*b3);
-	if(a==0||b==0||c==0){
-		return true;
-	}else{
-		return false;
-	}
-}
-bool Triangle::IsObtuse(){
-	double a,b,c;
-	a=(b1*b1+b2*b2-b3*b3)/(2*b1*b2);
-	b=(b1*b1+b3*b3-b2*b2)/(2*b1*b3);
-	c=(b2*b2+b3*b3-b1*b1)/(2*b2*b3);
-	if(a<0||b<0||c<0){
-		return true;
-	}else{
-		return false;
-	}
-}
-
-int main(){
-	Triangle tri1(1,4,5);
-	if (tri1.Istri()) {
-		if (tri1.IsAcute()) {
-			cout << "该三角形是锐角三角形\n";
-		}
-		if (tri1.IsObtuse()) {
-			cout << "该三角形是钝角三角形\n";
-		}
-		if (tri1.Isrig()) {
-			cout << "该三角形是直角三角形\n";
-		}
-		cout << "该三角形面积是：" << tri1.area();
-	}else{
-		cout<<"该三条直线不能构成三角形";
-	}
-	return 0;
-}
+//习题7.4
+//class Address{
+//private:
+//	char name[20];
+//	char street[20];
+//	char city[20];
+//	int code;
+//
+//public:
+//	Address();
+//	Address(char *n,char *s,char *c,int co);
+//	void Changename(char *n);
+//	void Display();
+//};
+//
+//Address::Address(){
+//	strcpy(name,"shannxi");
+//	strcpy(street,"yanta");
+//	strcpy(city,"xi'an");
+//	code=71002;
+//}
+//
+//Address::Address(char *n,char *s,char *c,int co){
+//	strcpy(this->name,n);
+//	strcpy(this->street,s);
+//	strcpy(this->city,c);
+//	this->code=co;
+//}
+//
+//void Address::Changename(char *n){
+//	strcpy(this->name,n);
+//}
+//
+//void Address::Display(){
+//	cout<<name<<"省 "<<city<<"市 "<<street<<"街道 "<<"邮编："<<code<<endl;
+//}
+//
+//int main(){
+//	Address ad;
+//	ad.Display();
+//}
