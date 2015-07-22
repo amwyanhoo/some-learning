@@ -1,6 +1,9 @@
 #include <iostream>
 #include <cstring>
 #include <cmath>
+#include <ctime>
+#include <windows.h>
+#include <afxres.h>
 using namespace std;
 
 //习题7.1
@@ -214,4 +217,155 @@ using namespace std;
 //int main(){
 //	Address ad;
 //	ad.Display();
+//}
+
+//习题7.5
+//class Point3D{
+//private:
+//	double x,y,z;
+//public:
+//	Point3D();//构造函数的一种，可以重载
+//	Point3D(double x,double y,double z);
+//	double distance(Point3D p);
+//	~Point3D();//析构函数
+//};
+//
+//Point3D::Point3D(){
+//	x=0;
+//	y=0;
+//	z=0;
+//}
+//
+//Point3D::Point3D(double x,double y,double z){
+//	this->x=x;
+//	this->y=y;
+//	this->z=z;
+//}
+//
+//Point3D::~Point3D(){
+//	cout<<"点("<<x<<","<<y<<","<<z<<")被释放\n";
+//}
+//
+//double Point3D::distance(Point3D p){
+//	double x1,y1,z1,distance;
+//	x1=pow((x-p.x),2);
+//	y1=pow((y-p.y),2);
+//	z1=pow((z-p.z),2);
+//	distance=sqrt(x1+y1+z1);
+//	return distance;
+//}
+//
+//int main(){
+//	Point3D p1;
+//	Point3D p2(1,0,0);
+//	cout<<p1.distance(p2)<<endl;
+//}
+
+//class E_Clock{
+//private:
+//	int hour,minute,second;
+//	bool Is59ofs();
+//public:
+//	E_Clock();
+//	E_Clock(int hour,int minute,int second);
+//	void showTime();
+//	void addSecond();//秒加1功能，与走秒功能结合，实现计时与走秒功能。
+//	void run1s();//走秒功能
+//	void minus1s();//减秒功能，实现倒计时
+//};
+//
+//E_Clock::E_Clock(){
+//	this->hour=0;
+//	this->minute=0;
+//	this->second=0;
+//}
+//E_Clock::E_Clock(int hour,int minute,int second){
+//	this->hour=hour;
+//	this->minute=minute;
+//	this->second=second;
+//}
+//
+//bool E_Clock::Is59ofs(){
+//	if(second==59){
+//		return true;
+//	}else{
+//		return false;
+//	}
+//}
+//
+//void E_Clock::addSecond(){
+//	if (Is59ofs()) {
+//		if (minute == 59) {
+//			if(hour==23){
+//				hour=0;
+//				minute=0;
+//				second=0;
+//			}else{
+//				hour++;
+//				minute = 0;
+//				second = 0;
+//			}
+//		}else{
+//			minute++;
+//			second=0;
+//		}
+//	}else {
+//		second++;
+//	}
+//}
+//
+//void E_Clock::showTime(){
+//	cout<<"设置的时间为"<<hour<<":"<<minute<<":"<<second<<endl;
+//}
+//
+//void E_Clock::run1s(){
+//	Sleep(1000);
+//}
+//void E_Clock::minus1s(){
+//	if(second==0){
+//		if(minute==0){
+//			if(hour==0){
+//				hour=23;
+//				minute=59;
+//				second=59;
+//			}else{
+//				minute=59;
+//				second=59;
+//				hour--;
+//			}
+//		}else{
+//			second=59;
+//			minute--;
+//		}
+//	}else{
+//		second--;
+//	}
+//}
+//
+//int main(){
+////	long t;
+//	int h,m,s;
+////	time(&t);
+////	h=t/3600;
+////	m=(t-h*3600)/60;
+////	s=t%60;
+////	h=(h+8)%24;//这段代码为获取系统当前时间的代码
+////	E_Clock ec(h,m,s);
+//
+////	SYSTEMTIME st = {0};
+////	 GetLocalTime(&st);
+//////	  st.wYear,
+//////	  st.wMonth,
+//////	  st.wDay,
+////	  h=st.wHour,
+////	  m=st.wMinute,
+////	  s=st.wSecond;
+//	  E_Clock ec(0,0,5);
+//	  ec.showTime();
+//	  for(int i=0;i<10;i++){
+//		  ec.run1s();
+//		  ec.minus1s();
+//		  ec.showTime();
+//	  }
+//	  MessageBeep(MB_OK);//使系统发声
 //}
