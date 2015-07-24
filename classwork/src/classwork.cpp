@@ -261,6 +261,7 @@ using namespace std;
 //	cout<<p1.distance(p2)<<endl;
 //}
 
+//习题7.7
 //class E_Clock{
 //private:
 //	int hour,minute,second;
@@ -369,3 +370,94 @@ using namespace std;
 //	  }
 //	  MessageBeep(MB_OK);//使系统发声
 //}
+
+//习题7.8
+class Rational{
+private:
+	int numerator,denominator;
+
+public:
+	Rational();
+	Rational(int numerator,int denominator);
+	Rational add(Rational r);
+	Rational sub(Rational r);
+	Rational mul(Rational r);
+	Rational div(Rational r);
+	int gcd(int a,int b);
+	void show();
+};
+
+Rational::Rational(){
+	numerator=1;
+	denominator=2;
+}
+
+Rational::Rational(int numerator,int denominator){
+	this->numerator=numerator;
+	this->denominator=denominator;
+}
+
+int Rational::gcd(int p,int q){
+	int tmp1,c;
+		if(p<q){//保证p一定大于q
+			tmp1=p;
+			p=q;
+			q=tmp1;
+		}
+		c = p % q;
+		while(c!=0){
+			p=q;
+			q=c;
+			c=p%q;
+		}
+		return q;
+	}
+
+Rational Rational::add(Rational u) {
+	int tmp;
+	Rational v;
+	v.numerator=numerator*u.denominator+denominator*u.numerator;
+	v.denominator=denominator*u.denominator;
+	tmp=gcd(v.numerator,v.denominator);
+	v.numerator=v.numerator/tmp;
+	v.denominator=v.denominator/tmp;
+	return v;
+}
+
+Rational Rational::sub(Rational u) {
+	int tmp;
+	Rational v;
+	v.numerator = numerator * u.denominator - denominator * u.numerator;
+	v.denominator = denominator * u.denominator;
+	tmp = gcd(v.numerator, v.denominator);
+	v.numerator = v.numerator / tmp;
+	v.denominator = v.denominator / tmp;
+	return v;
+}
+Rational Rational::mul(Rational u) {
+	int tmp;
+	Rational v;
+	v.numerator = numerator * u.numerator;
+	v.denominator = denominator * u.denominator;
+	tmp = gcd(v.numerator, v.denominator);
+	v.numerator = v.numerator / tmp;
+	v.denominator = v.denominator / tmp;
+	return v;
+}
+Rational Rational::div(Rational u) {
+	Rational r;
+	r.numerator=u.denominator;
+	r.denominator=u.numerator;
+	return mul(r);
+}
+
+void Rational::show(){
+	cout<<"the ration is "<<numerator<<"/"<<denominator<<endl;
+}
+
+int main(){
+	Rational r1(2,3);
+	Rational r2(4,3);
+	Rational r3=r1.div(r2);
+	r3.show();
+}
