@@ -463,108 +463,235 @@ using namespace std;
 //}
 
 //习题7.9
-class Time {
+//class Time {
+//private:
+//	int hour, minute, second;
+//public:
+//	Time();
+//	Time(int hour, int mintue, int second);
+//	void set(int hour, int mintue, int second);
+//	Time add(Time t);
+//	Time sub(Time t);
+//	void show24();
+//	void show12();
+//};
+//
+//Time::Time(){
+//	hour=0;
+//	minute=0;
+//	second=0;
+//}
+//
+//Time::Time(int hour, int mintue, int second){
+//	set(hour,mintue,second);
+//}
+//
+//void Time::set(int hour, int mintue, int second){
+//	this->hour=hour;
+//	this->minute=mintue;
+//	this->second=second;
+//}
+//
+//Time Time::add(Time t){
+//	Time ti;
+//	ti.second=second+t.second;
+//	if(ti.second>59){
+//		ti.second-=60;
+//		ti.minute++;
+//	}
+//	ti.minute+=minute+t.minute;
+//	if(ti.minute>59){
+//		ti.minute-=60;
+//		ti.hour++;
+//	}
+//	ti.hour+=hour+t.hour;
+//	return ti;
+//}
+//
+//Time Time::sub(Time t){//不能按时间段处理，不允许有负数
+//	Time ti;
+//	if(second<t.second){//秒的相减
+//		if(minute==0){
+//			if(hour==0){
+//				hour=23;
+//				minute=59;
+//				ti.second=second+60-t.second;
+//			}else{
+//				hour--;
+//				minute=59;
+//				ti.second=second+60-t.second;
+//			}
+//		}else{
+//			minute--;
+//			ti.second = second + 60 - t.second;
+//
+//		}
+//	}else{
+//		ti.second=second-t.second;
+//	}
+//	if(minute<t.minute){//分的相减
+//		if(hour==0){
+//			hour=23;
+//			ti.minute=minute+60-t.minute;
+//		}else{
+//			hour--;
+//			ti.minute=minute+60-t.minute;
+//		}
+//	}else{
+//		ti.minute=minute-t.minute;
+//	}
+//
+//	if(hour<t.hour){
+//		ti.hour=24+hour-t.hour;
+//	}else{
+//		ti.hour=hour-t.hour;
+//	}
+//
+//	return ti;
+//}
+//
+//void Time::show24(){
+//	cout<<hour<<":"<<minute<<":"<<second<<endl;
+//}
+//
+//void Time::show12(){
+//	if(hour>12){
+//		cout<<hour-12<<":"<<minute<<":"<<second<<" PM"<<endl;
+//	}else{
+//		cout<<hour<<":"<<minute<<":"<<second<<" AM"<<endl;
+//	}
+//}
+//
+//int main(){
+//	Time t1(0,0,20);
+//	Time t2(1,0,50);
+//	Time t3=t1.add(t2);
+//	t3.show12();
+//}
+
+//习题7.10
+class Date{
 private:
-	int hour, minute, second;
+	int year,month,day;
 public:
-	Time();
-	Time(int hour, int mintue, int second);
-	void set(int hour, int mintue, int second);
-	Time add(Time t);
-	Time sub(Time t);
-	void show24();
-	void show12();
+	Date();
+	Date(int year,int month,int day);
+	void show();
 };
 
-Time::Time(){
-	hour=0;
-	minute=0;
-	second=0;
+Date::Date(){
+	year=1970;
+	month=1;
+	day=1;
 }
 
-Time::Time(int hour, int mintue, int second){
-	set(hour,mintue,second);
-}
-
-void Time::set(int hour, int mintue, int second){
-	this->hour=hour;
-	this->minute=mintue;
-	this->second=second;
-}
-
-Time Time::add(Time t){
-	Time ti;
-	ti.second=second+t.second;
-	if(ti.second>59){
-		ti.second-=60;
-		ti.minute++;
-	}
-	ti.minute+=minute+t.minute;
-	if(ti.minute>59){
-		ti.minute-=60;
-		ti.hour++;
-	}
-	ti.hour+=hour+t.hour;
-	return ti;
-}
-
-Time Time::sub(Time t){//不能按时间段处理，不允许有负数
-	Time ti;
-	if(second<t.second){//秒的相减
-		if(minute==0){
-			if(hour==0){
-				hour=23;
-				minute=59;
-				ti.second=second+60-t.second;
-			}else{
-				hour--;
-				minute=59;
-				ti.second=second+60-t.second;
-			}
-		}else{
-			minute--;
-			ti.second = second + 60 - t.second;
-
-		}
-	}else{
-		ti.second=second-t.second;
-	}
-	if(minute<t.minute){//分的相减
-		if(hour==0){
-			hour=23;
-			ti.minute=minute+60-t.minute;
-		}else{
-			hour--;
-			ti.minute=minute+60-t.minute;
-		}
-	}else{
-		ti.minute=minute-t.minute;
+Date::Date(int year,int month,int day){
+		this->year=year;
+		this->month=month;
+		this->day=day;
 	}
 
-	if(hour<t.hour){
-		ti.hour=24+hour-t.hour;
-	}else{
-		ti.hour=hour-t.hour;
-	}
-
-	return ti;
+void Date::show(){
+	cout<<year<<"/"<<month<<"/"<<day<<endl;
 }
 
-void Time::show24(){
-	cout<<hour<<":"<<minute<<":"<<second<<endl;
+class EmpSalary{
+private:
+	double wage,subsidy,rent,costofelec,costofwarter;
+public:
+	EmpSalary();
+	EmpSalary(double wage,double subsidy,double rent,double costofelec,double costofwarter);
+	double realsum();
+};
+
+EmpSalary::EmpSalary(){
+	wage = 0;
+	subsidy = 0;
+	rent = 0;
+	costofelec = 0;
+	costofwarter = 0;
 }
 
-void Time::show12(){
-	if(hour>12){
-		cout<<hour-12<<":"<<minute<<":"<<second<<" PM"<<endl;
-	}else{
-		cout<<hour<<":"<<minute<<":"<<second<<" AM"<<endl;
-	}
+EmpSalary::EmpSalary(double wage,double subsidy,double rent,double costofelec,double costofwarter){
+	this->wage=wage;
+	this->subsidy=subsidy;
+	this->rent=rent;
+	this->costofelec=costofelec;
+	this->costofwarter=costofwarter;
 }
 
-int main(){
-	Time t1(0,0,20);
-	Time t2(1,0,50);
-	Time t3=t1.add(t2);
-	t3.show12();
+double EmpSalary::realsum(){
+	return wage+subsidy+rent+costofelec+costofwarter;
+}
+
+enum Position{
+	Manager,Engineer,Employee1,Work
+};
+
+
+class Employee{
+private:
+	char department[20],name[20];
+	Date dayofWork,birthday;
+	EmpSalary salary;
+	Position empPosition;
+
+public:
+	void regist (char *d,char *n,Date b,Position e,Date day,EmpSalary s);
+	Employee (char *d,char *n,Date b,Position e,Date day,EmpSalary s);
+	Employee();
+	void setSalary(EmpSalary e);
+	EmpSalary   getSalary();
+	void showMessage();
+};
+
+void Employee::regist (char *d,char *n,Date b,Position e,Date day,EmpSalary s){
+	strcpy(department,d);
+	strcpy(name,n);
+	birthday=b;
+	empPosition=e;
+	dayofWork=day;
+	salary=s;
+}
+
+Employee::Employee(){
+	strcpy(department,"Tr");
+	strcpy(name,"amwaynhoo");
+	Date b(1989,8,12);
+	birthday=b;
+	empPosition=Manager;
+	Date day(2015,8,12);
+	dayofWork=day;
+	EmpSalary es;
+	salary=es;
+}
+
+Employee::Employee (char *d,char *n,Date b,Position e,Date day,EmpSalary s){
+	regist(d,n,b,e,day,s);
+}
+
+//void Employee::setSalary(EmpSalary e){
+//	salary.costofelec=e.costofelec;
+//	salary.costofwarter=e.costofwarter;
+//	salary.rent=e.rent;
+//	salary.subsidy=e.subsidy;
+//	salary.wage=e.wage;
+//}
+//
+//EmpSalary Employee::getSalary(){
+//	return salary;
+//}
+
+void Employee::showMessage(){
+	cout<<"工作部门\t"<<department<<endl;
+	cout<<"姓名\t"<<name<<endl;
+	cout<<"出生日期\t";birthday.show();
+	cout<<"职务\t"<<empPosition<<endl;
+	cout<<"参加工作时间\t";dayofWork.show();
+	cout<<"工资\t"<<salary.realsum()<<endl;
+}
+
+int main(){//测试程序
+	Employee emp;
+	emp.showMessage();
 }
