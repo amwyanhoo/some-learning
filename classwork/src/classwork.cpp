@@ -261,7 +261,7 @@ using namespace std;
 //	cout<<p1.distance(p2)<<endl;
 //}
 
-//习题7.7
+//习题7.6
 //class E_Clock{
 //private:
 //	int hour,minute,second;
@@ -371,93 +371,200 @@ using namespace std;
 //	  MessageBeep(MB_OK);//使系统发声
 //}
 
-//习题7.8
-class Rational{
-private:
-	int numerator,denominator;
+//习题7.7
+//class Rational{
+//private:
+//	int numerator,denominator;
+//
+//public:
+//	Rational();
+//	Rational(int numerator,int denominator);
+//	Rational add(Rational r);
+//	Rational sub(Rational r);
+//	Rational mul(Rational r);
+//	Rational div(Rational r);
+//	int gcd(int a,int b);
+//	void show();
+//};
+//
+//Rational::Rational(){
+//	numerator=1;
+//	denominator=2;
+//}
+//
+//Rational::Rational(int numerator,int denominator){
+//	this->numerator=numerator;
+//	this->denominator=denominator;
+//}
+//
+//int Rational::gcd(int p,int q){
+//	int tmp1,c;
+//		if(p<q){//保证p一定大于q
+//			tmp1=p;
+//			p=q;
+//			q=tmp1;
+//		}
+//		c = p % q;
+//		while(c!=0){
+//			p=q;
+//			q=c;
+//			c=p%q;
+//		}
+//		return q;
+//	}
+//
+//Rational Rational::add(Rational u) {
+//	int tmp;
+//	Rational v;
+//	v.numerator=numerator*u.denominator+denominator*u.numerator;
+//	v.denominator=denominator*u.denominator;
+//	tmp=gcd(v.numerator,v.denominator);
+//	v.numerator=v.numerator/tmp;
+//	v.denominator=v.denominator/tmp;
+//	return v;
+//}
+//
+//Rational Rational::sub(Rational u) {
+//	int tmp;
+//	Rational v;
+//	v.numerator = numerator * u.denominator - denominator * u.numerator;
+//	v.denominator = denominator * u.denominator;
+//	tmp = gcd(v.numerator, v.denominator);
+//	v.numerator = v.numerator / tmp;
+//	v.denominator = v.denominator / tmp;
+//	return v;
+//}
+//Rational Rational::mul(Rational u) {
+//	int tmp;
+//	Rational v;
+//	v.numerator = numerator * u.numerator;
+//	v.denominator = denominator * u.denominator;
+//	tmp = gcd(v.numerator, v.denominator);
+//	v.numerator = v.numerator / tmp;
+//	v.denominator = v.denominator / tmp;
+//	return v;
+//}
+//Rational Rational::div(Rational u) {
+//	Rational r;
+//	r.numerator=u.denominator;
+//	r.denominator=u.numerator;
+//	return mul(r);
+//}
+//
+//void Rational::show(){
+//	cout<<"the ration is "<<numerator<<"/"<<denominator<<endl;
+//}
+//
+//int main(){
+//	Rational r1(2,3);
+//	Rational r2(4,3);
+//	Rational r3=r1.div(r2);
+//	r3.show();
+//}
 
+//习题7.9
+class Time {
+private:
+	int hour, minute, second;
 public:
-	Rational();
-	Rational(int numerator,int denominator);
-	Rational add(Rational r);
-	Rational sub(Rational r);
-	Rational mul(Rational r);
-	Rational div(Rational r);
-	int gcd(int a,int b);
-	void show();
+	Time();
+	Time(int hour, int mintue, int second);
+	void set(int hour, int mintue, int second);
+	Time add(Time t);
+	Time sub(Time t);
+	void show24();
+	void show12();
 };
 
-Rational::Rational(){
-	numerator=1;
-	denominator=2;
+Time::Time(){
+	hour=0;
+	minute=0;
+	second=0;
 }
 
-Rational::Rational(int numerator,int denominator){
-	this->numerator=numerator;
-	this->denominator=denominator;
+Time::Time(int hour, int mintue, int second){
+	set(hour,mintue,second);
 }
 
-int Rational::gcd(int p,int q){
-	int tmp1,c;
-		if(p<q){//保证p一定大于q
-			tmp1=p;
-			p=q;
-			q=tmp1;
+void Time::set(int hour, int mintue, int second){
+	this->hour=hour;
+	this->minute=mintue;
+	this->second=second;
+}
+
+Time Time::add(Time t){
+	Time ti;
+	ti.second=second+t.second;
+	if(ti.second>59){
+		ti.second-=60;
+		ti.minute++;
+	}
+	ti.minute+=minute+t.minute;
+	if(ti.minute>59){
+		ti.minute-=60;
+		ti.hour++;
+	}
+	ti.hour+=hour+t.hour;
+	return ti;
+}
+
+Time Time::sub(Time t){//不能按时间段处理，不允许有负数
+	Time ti;
+	if(second<t.second){//秒的相减
+		if(minute==0){
+			if(hour==0){
+				hour=23;
+				minute=59;
+				ti.second=second+60-t.second;
+			}else{
+				hour--;
+				minute=59;
+				ti.second=second+60-t.second;
+			}
+		}else{
+			minute--;
+			ti.second = second + 60 - t.second;
+
 		}
-		c = p % q;
-		while(c!=0){
-			p=q;
-			q=c;
-			c=p%q;
+	}else{
+		ti.second=second-t.second;
+	}
+	if(minute<t.minute){//分的相减
+		if(hour==0){
+			hour=23;
+			ti.minute=minute+60-t.minute;
+		}else{
+			hour--;
+			ti.minute=minute+60-t.minute;
 		}
-		return q;
+	}else{
+		ti.minute=minute-t.minute;
 	}
 
-Rational Rational::add(Rational u) {
-	int tmp;
-	Rational v;
-	v.numerator=numerator*u.denominator+denominator*u.numerator;
-	v.denominator=denominator*u.denominator;
-	tmp=gcd(v.numerator,v.denominator);
-	v.numerator=v.numerator/tmp;
-	v.denominator=v.denominator/tmp;
-	return v;
+	if(hour<t.hour){
+		ti.hour=24+hour-t.hour;
+	}else{
+		ti.hour=hour-t.hour;
+	}
+
+	return ti;
 }
 
-Rational Rational::sub(Rational u) {
-	int tmp;
-	Rational v;
-	v.numerator = numerator * u.denominator - denominator * u.numerator;
-	v.denominator = denominator * u.denominator;
-	tmp = gcd(v.numerator, v.denominator);
-	v.numerator = v.numerator / tmp;
-	v.denominator = v.denominator / tmp;
-	return v;
-}
-Rational Rational::mul(Rational u) {
-	int tmp;
-	Rational v;
-	v.numerator = numerator * u.numerator;
-	v.denominator = denominator * u.denominator;
-	tmp = gcd(v.numerator, v.denominator);
-	v.numerator = v.numerator / tmp;
-	v.denominator = v.denominator / tmp;
-	return v;
-}
-Rational Rational::div(Rational u) {
-	Rational r;
-	r.numerator=u.denominator;
-	r.denominator=u.numerator;
-	return mul(r);
+void Time::show24(){
+	cout<<hour<<":"<<minute<<":"<<second<<endl;
 }
 
-void Rational::show(){
-	cout<<"the ration is "<<numerator<<"/"<<denominator<<endl;
+void Time::show12(){
+	if(hour>12){
+		cout<<hour-12<<":"<<minute<<":"<<second<<" PM"<<endl;
+	}else{
+		cout<<hour<<":"<<minute<<":"<<second<<" AM"<<endl;
+	}
 }
 
 int main(){
-	Rational r1(2,3);
-	Rational r2(4,3);
-	Rational r3=r1.div(r2);
-	r3.show();
+	Time t1(0,0,20);
+	Time t2(1,0,50);
+	Time t3=t1.add(t2);
+	t3.show12();
 }
