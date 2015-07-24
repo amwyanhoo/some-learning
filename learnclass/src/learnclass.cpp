@@ -4,6 +4,7 @@
 #include <cmath>
 using namespace std;
 
+
 //class CLOCK{//class <类名>
 //private://<访问限定符>：，除private外，还有public,protected
 //	int Hour;//成员列表，与变量声明类似。
