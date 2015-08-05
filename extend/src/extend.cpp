@@ -193,4 +193,124 @@
 //	return	0 ;
 //}
 
+//虚基类
+//#include <iostream>
+//#include <cstring>
+//using namespace std;
+//
+//class Mobile{
+//public:
+//	char mynumber[11];
+//	void show(){
+//		cout<<"The phone is mobile"<<mynumber<<endl;
+//	}
+//};
+//
+//class MobileGsm:virtual public Mobile{
+//public :
+//	int memory;
+//	void showmemory(){
+//		cout<<"The memory of gsm is: "<<memory<<endl;
+//	}
+//};
+//
+//class MobileCdma:virtual public Mobile{
+//public :
+//	int memory;
+//	void showmemory(){
+//		cout<<"The memory of cdma is: "<<memory<<endl;
+//	}
+//};
+//
+//class MobileCell:public MobileGsm,public MobileCdma{
+//public:
+//	char os[10];
+//	void showOs(){
+//		cout<<"The OS of the phone is: "<<os<<endl;
+//	}
+//};
+//
+//int main(){
+//	MobileCell Python1;
+//	strcpy(Python1.os,"Android");
+//	strcpy(Python1.mynumber,"13012100511");
+//	Python1.MobileGsm::memory=2;
+//	Python1.MobileCdma::memory=4;
+//
+//	Python1.show();
+//	Python1.MobileGsm::showmemory();
+//	Python1.MobileCdma::showmemory();
+//	Python1.showOs();
+//	return 0;
+//}
+
+//例8-7从学生到本科生，硕士生，博士生
+//#include <iostream>
+//#include <cstring>
+//using namespace std;
+//class Student{
+//	int stdno,age;
+//	char name[10],classsname[10],schoolname[10];
+//public:
+//	Student(int stdno,char *name,int age,char *cname,char *sname){
+//		this->stdno=stdno;
+//		strcpy(this->name,name);
+//		this->age=age;
+//		strcpy(this->classsname,cname);
+//		strcpy(this->schoolname,sname);
+//	}
+//	void show(){
+//		cout<<"学生学号：\t"<<this->stdno<<endl;
+//		cout<<"学生姓名：\t"<<name<<endl;
+//		cout<<"学生年龄：\t"<<age<<endl;
+//		cout<<"所在班级：\t"<<this->classsname<<endl;
+//		cout<<"所在学校：\t"<<this->schoolname<<endl;
+//	}
+//
+//};
+//
+//class CollegeStudent : public Student{
+//	char classteacher[20];
+//public:
+//	CollegeStudent(int stdno,char *name,int age,char *cname,char *sname,char *ctea):Student(
+//			stdno,name,age,cname,sname){
+//		strcpy(this->classteacher,ctea);
+//	}
+//	void show(){
+//		Student::show();
+//		cout<<"辅导员：\t"<<classteacher<<endl;
+//	}
+//};
+//class GraduateStudent : public Student{
+//	char tutor[20],projectname[20];
+//public:
+//	GraduateStudent(int stdno,char *name,int age,char *cname,
+//			char *sname,char *tutor,char *pname):Student(
+//			stdno,name,age,cname,sname){
+//		strcpy(this->tutor,tutor);
+//		strcpy(this->projectname,pname);
+//	}
+//	void show(){
+//		Student::show();
+//		cout<<"导师名称：\t"<<tutor<<endl;
+//		cout<<"课题名称：\t"<<projectname<<endl;
+//	}
+//};
+//class DoctorStudent : public Student{
+//	char researchname[20];
+//public:
+//	DoctorStudent(int stdno,char *name,int age,char *cname,char *sname,char *rname):Student(
+//			stdno,name,age,cname,sname){
+//		strcpy(this->researchname,rname);
+//	}
+//	void show(){
+//		Student::show();
+//		cout<<"研究项目：\t"<<researchname<<endl;
+//	}
+//};
+//
+//int main(){
+//	CollegeStudent cst(15150,"amwyanhoo",20,"IT","xupt","Lic");
+//	cst.show();
+//}
 
