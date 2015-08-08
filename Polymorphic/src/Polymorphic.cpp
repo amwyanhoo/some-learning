@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstring>
 #include <iomanip>
+#include <cstdlib>
 #include "Shape.h"
 #include "Point.h"
 #include "Circle.h"
@@ -249,18 +250,133 @@ using namespace std;
 //	return 0;
 //}
 
-int main(){
-	Shape *s;
-//	Point p(3,4);
-	Circle c(3,4,5);
-	s=&c;
-//	s->show();
-	(*s).show();
-	s->showkey();
+//例9-6
+//int main(){
+//	Shape *s;
+////	Point p(3,4);
+//	Circle c(3,4,5);
+//	s=&c;
+////	s->show();
+//	(*s).show();
+//	s->showkey();
+//
+//	return 0;
+//}
 
-	return 0;
+
+//例9-7
+class Array{
+	int size,*ptr;
+public:
+	Array(int arraySize=10);
+	Array(Array &);
+	~Array();
+	int getSize();
+	bool operator ==(Array &);
+	Array operator +(Array &);
+	Array operator -(Array &);
+	void input();
+	void output();
+};
+
+Array::Array(int arraySize){
+	this->size=arraySize;
+	ptr=new int [size];
+	for(int i=0;i<size;i++){
+		ptr[i]=0;
+	}
+//	int m[size];
+//	for(int i=0;i<size;i++){
+//		m[i]=0;
+//	}
+//	ptr=m;
 }
 
+Array::Array(Array &a){
+	size=a.size;
+	ptr=new int[size];
+	for(int i=0;i<size;i++){
+		ptr[i]=a.ptr[i];
+	}
+}
 
+Array::~Array(){
+	delete []ptr;
+}
 
+int Array::getSize(){
+	return size;
+}
 
+bool Array::operator ==(Array &a) {
+	if (size != a.size) {
+		return false;
+	}
+	for (int i = 0; i < size; i++) {
+		if (ptr[i] != a.ptr[i]) {
+			return false;
+		}
+	}
+	return true;
+}
+
+Array Array::operator +(Array &a){
+	if(size==a.size){
+		Array tmp(size);
+		for(int i=0;i<size;i++){
+			tmp.ptr[i]=ptr[i]+a.ptr[i];
+		}
+		return tmp;
+	}else{
+		cout<<"数组大小不相等，不能相加!\n";
+		exit(1);
+	}
+}
+
+Array Array::operator -(Array &a){
+	if(size==a.size){
+		Array tmp(size);
+		for(int i=0;i<size;i++){
+			tmp.ptr[i]=ptr[i]-a.ptr[i];
+		}
+		return tmp;
+	}else{
+		cout<<"数组大小不相等，不能相减!\n";
+		exit(1);
+	}
+}
+
+void Array::input(){
+	for(int i=0;i<getSize();i++){
+		cout<<"第"<<i<<"个";
+		cin>>ptr[i];
+	}
+}
+
+void Array::output(){
+	cout<<"内容为";
+	for(int i=0;i<getSize();i++){
+		cout<<ptr[i]<<" ";
+	}
+	cout<<endl;
+}
+
+ostream & operator<<(ostream & out,Array &array){
+	array.output();
+	return out;
+}
+
+int main(){
+	Array s1(3),s2(3);
+	cout<<"请输入s1内容"<<endl;
+	s1.input();
+	cout<<"请输入s2内容"<<endl;
+	s2.input();
+//	if(s1==s2){
+//		cout<<"s1=s2"<<endl;
+//	}else{
+//		cout<<"s1!=s2"<<endl;
+//	}
+//	(s1+s2).output();
+	return 0;
+}
