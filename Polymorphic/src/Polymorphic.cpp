@@ -265,118 +265,271 @@ using namespace std;
 
 
 //例9-7
-class Array{
-	int size,*ptr;
+//class Array{
+//	int size,*ptr;
+//public:
+//	Array(int arraySize=10);
+//	Array(Array &);
+//	~Array();
+//	int getSize();
+//	bool operator ==(Array &);
+//	Array operator +(Array &);
+//	Array operator -(Array &);
+//	void input();
+//	void output();
+//};
+//
+//Array::Array(int arraySize){
+//	this->size=arraySize;
+//	ptr=new int [size];
+//	for(int i=0;i<size;i++){
+//		ptr[i]=0;
+//	}
+////	int m[size];
+////	for(int i=0;i<size;i++){
+////		m[i]=0;
+////	}
+////	ptr=m;
+//}
+//
+//Array::Array(Array &a){
+//	size=a.size;
+//	ptr=new int[size];
+//	for(int i=0;i<size;i++){
+//		ptr[i]=a.ptr[i];
+//	}
+//}
+//
+//Array::~Array(){
+//	delete []ptr;
+//}
+//
+//int Array::getSize(){
+//	return size;
+//}
+//
+//bool Array::operator ==(Array &a) {
+//	if (size != a.size) {
+//		return false;
+//	}
+//	for (int i = 0; i < size; i++) {
+//		if (ptr[i] != a.ptr[i]) {
+//			return false;
+//		}
+//	}
+//	return true;
+//}
+//
+//Array Array::operator +(Array &a){
+//	if(size==a.size){
+//		Array tmp(size);
+//		for(int i=0;i<size;i++){
+//			tmp.ptr[i]=ptr[i]+a.ptr[i];
+//		}
+//		return tmp;
+//	}else{
+//		cout<<"数组大小不相等，不能相加!\n";
+//		exit(1);
+//	}
+//}
+//
+//Array Array::operator -(Array &a){
+//	if(size==a.size){
+//		Array tmp(size);
+//		for(int i=0;i<size;i++){
+//			tmp.ptr[i]=ptr[i]-a.ptr[i];
+//		}
+//		return tmp;
+//	}else{
+//		cout<<"数组大小不相等，不能相减!\n";
+//		exit(1);
+//	}
+//}
+//
+//void Array::input(){
+//	for(int i=0;i<getSize();i++){
+//		cout<<"第"<<i<<"个";
+//		cin>>ptr[i];
+//	}
+//}
+//
+//void Array::output(){
+//	cout<<"内容为";
+//	for(int i=0;i<getSize();i++){
+//		cout<<ptr[i]<<" ";
+//	}
+//	cout<<endl;
+//}
+//
+//ostream & operator<<(ostream & out,Array &array){
+//	array.output();
+//	return out;
+//}
+//
+//int main(){
+//	Array s1(3),s2(3);
+//	cout<<"请输入s1内容"<<endl;
+//	s1.input();
+//	cout<<"请输入s2内容"<<endl;
+//	s2.input();
+////	if(s1==s2){
+////		cout<<"s1=s2"<<endl;
+////	}else{
+////		cout<<"s1!=s2"<<endl;
+////	}
+////	(s1+s2).output();
+//	return 0;
+//}
+
+
+//例9-8
+
+class Base{
+	char *ID;
+	char *name;
+	char sex[3];
+	int age;
 public:
-	Array(int arraySize=10);
-	Array(Array &);
-	~Array();
-	int getSize();
-	bool operator ==(Array &);
-	Array operator +(Array &);
-	Array operator -(Array &);
-	void input();
-	void output();
+	Base(char *id,char *Name,char *sex,int a){
+		setBase(id,Name,sex,a);
+	}
+	virtual ~Base(){
+		delete []ID;
+		delete []name;
+	}
+	void setBase(char *id,char *Name,char *sex,int a){
+		ID=new char(strlen(id)+1);
+		strcpy(this->ID, id);
+		name=new char(strlen(Name)+1);
+		strcpy(this->name, Name);
+		strcpy(this->sex,sex);
+		age = a;
+	}
+	virtual void display(){
+		cout<<"身份证号：\t"<<ID<<endl;
+		cout<<"姓名：\t"<<name<<endl;
+		cout<<"性别：\t"<<sex<<endl;
+		cout<<"年龄：\t"<<age<<endl;
+	}
 };
 
-Array::Array(int arraySize){
-	this->size=arraySize;
-	ptr=new int [size];
-	for(int i=0;i<size;i++){
-		ptr[i]=0;
+class Student: virtual public Base{
+protected:
+	char *major;
+	int s_num;
+	int level;
+public:
+	Student(char *id,char *name,char sex[],int a,char *m,int s,int l):Base(id,name,sex,a){
+		major = new char(strlen(m) + 1);
+		strcpy(major, m);
+		s_num = s;
+		level = l;
 	}
-//	int m[size];
-//	for(int i=0;i<size;i++){
-//		m[i]=0;
-//	}
-//	ptr=m;
-}
+	virtual ~Student(){
+		delete []major;
+	}
+	void setStudent(char *id,char *name,char *sex,int a,char *m,int s,int l){
+		setBase(id,name,sex,a);
+		major=new char(strlen(m)+1);
+		strcpy(major,m);
+		s_num=s;
+		level=l;
+	}
+	virtual void display(){
+		Base::display();
+		cout<<"学生专业：\t"<<major<<endl;
+		cout<<"学生学号：\t"<<s_num<<endl;
+		cout<<"学生年级：\t"<<level<<endl;
+	}
+};
 
-Array::Array(Array &a){
-	size=a.size;
-	ptr=new int[size];
-	for(int i=0;i<size;i++){
-		ptr[i]=a.ptr[i];
+class Employee:virtual public Base{//虚基类当不止一次地通过多个路径继承基类时，可以使用虚基类，其格式为
+	//Class 派生类名: virtual  继承方式  基类名
+protected:
+	char *dept;
+	double salary;
+public:
+	Employee(char *id,char *name,char *sex,int a,char *d,double salary):Base(id,name,sex,a){
+		dept = new char(strlen(d) + 1);
+		strcpy(dept, d);
+		this->salary = salary;
+	}
+	virtual ~Employee(){
+		delete []dept;
+	}
+	void setEmployee(char *id,char *name,char *sex,int a,char *d,double salary){
+		setBase(id,name,sex,a);
+		dept=new char (strlen(d)+1);
+		strcpy(dept,d);
+		this->salary=salary;
+	}
+	virtual void display(){
+		Base::display();
+		cout<<"职员部门：\t"<<dept<<endl;
+		cout<<"职员薪资：\t"<<salary<<endl;
+	}
+};
+
+class Teacher : public Employee{
+protected:
+	char *title;
+public:
+	Teacher(char *id,char *name,char *sex,int a,char *d,double salary,char *tit):
+		Base(id,name,sex,a),
+		Employee(id,name,sex,a,d,salary){//此处是否有错误，有待观察
+		title = new char(strlen(tit) + 1);
+		strcpy(this->title, tit);
+	}
+	virtual ~Teacher(){
+		delete []title;
+	}
+	void setTeacher(char *id,char *name,char *sex,int a,char *d,double salary,char *tit){
+		setBase(id,name,sex,a);
+		setEmployee(id,name,sex,a,d,salary);
+		title = new char(strlen(tit) + 1);
+		strcpy(this->title, tit);
+	}
+	void display(){
+		Employee::display();
+		cout<<"老师职称：\t"<<title<<endl;
+	}
+};
+
+class Graduate: public Employee,Student{
+public:
+	Graduate(char *id,char *name,char *sex,int a,char *d,double salary,char *m,int s,int l):
+		Base(id,name,sex,a),Employee(id,name,sex,a,d,salary),
+		Student(id,name,sex,a,m,s,l){
+	}
+	virtual void display(){
+		Student::display();
+		cout<<"工作部门：\t"<<dept<<endl;
+		cout<<"工资：\t"<<salary<<endl;
+	}
+};
+
+void info1();
+void info2();
+
+void input1(Student s1[]){
+	char id[15],name[21],sex[3],major[11];
+	int age,s_num,level;
+	cout<<"学生信息录入"<<endl;
+	for(int i=0;i<2;i++){
+		cout<<"身份证号：";cin>>id;
+		cout<<"姓名：";cin>>name;
+		cout<<"性别：";cin>>sex;
+		cout<<"年龄：";cin>>age;
+		cout<<"学生专业：";cin>>major;
+		cout<<"学生年级：";cin>>level;
+		s1[i].setStudent(id,name,sex,age,major,s_num,level);
+		s1[i].display();
 	}
 }
 
-Array::~Array(){
-	delete []ptr;
-}
-
-int Array::getSize(){
-	return size;
-}
-
-bool Array::operator ==(Array &a) {
-	if (size != a.size) {
-		return false;
-	}
-	for (int i = 0; i < size; i++) {
-		if (ptr[i] != a.ptr[i]) {
-			return false;
-		}
-	}
-	return true;
-}
-
-Array Array::operator +(Array &a){
-	if(size==a.size){
-		Array tmp(size);
-		for(int i=0;i<size;i++){
-			tmp.ptr[i]=ptr[i]+a.ptr[i];
-		}
-		return tmp;
-	}else{
-		cout<<"数组大小不相等，不能相加!\n";
-		exit(1);
-	}
-}
-
-Array Array::operator -(Array &a){
-	if(size==a.size){
-		Array tmp(size);
-		for(int i=0;i<size;i++){
-			tmp.ptr[i]=ptr[i]-a.ptr[i];
-		}
-		return tmp;
-	}else{
-		cout<<"数组大小不相等，不能相减!\n";
-		exit(1);
-	}
-}
-
-void Array::input(){
-	for(int i=0;i<getSize();i++){
-		cout<<"第"<<i<<"个";
-		cin>>ptr[i];
-	}
-}
-
-void Array::output(){
-	cout<<"内容为";
-	for(int i=0;i<getSize();i++){
-		cout<<ptr[i]<<" ";
-	}
-	cout<<endl;
-}
-
-ostream & operator<<(ostream & out,Array &array){
-	array.output();
-	return out;
-}
-
-int main(){
-	Array s1(3),s2(3);
-	cout<<"请输入s1内容"<<endl;
-	s1.input();
-	cout<<"请输入s2内容"<<endl;
-	s2.input();
-//	if(s1==s2){
-//		cout<<"s1=s2"<<endl;
-//	}else{
-//		cout<<"s1!=s2"<<endl;
-//	}
-//	(s1+s2).output();
+int main(){//未完成，有瑕疵
+	Student s[1]={Student("620101197505223114","关键","男",26,"电信学院",8457678,3)};
+	input1(s);
 	return 0;
 }
+
