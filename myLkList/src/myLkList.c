@@ -1,46 +1,130 @@
-#include "stdio.h"
+//#include<stdlib.h>
+//#include<stdio.h>
+//#include<string.h>
+//char word[] = {'a','this','is','dog'};
+//int len = sizeof(word);
+//long point[len];
+////point = new long(len);
+//char* parse_str(char *str,char *word){
+//    int i,j;
+//    int str_len;
+//    long tp;
+//    if(NULL != str){
+//	str_len = strlen(str)+1;
+//    }
+//    char temp[str_len*4] = {0};
+//    for(i=0;i<len;i++){
+//       char *p = strchr(str,word[i]);
+//       point[i] = p
+//       if(NULL != p){
+//	    temp[i] = ' ';
+//	    temp[i+1] = *p;
+//
+//       }
+//    }
+//	for (j = 0; j < i; j++) {
+//		if (point[j] > point[j + 1]) {
+//			tp = point[j];
+//			point[j] = point[j + 1];
+//			point[j + 1] = tp;
+//		}
+//	}
+//    return temp;
+//}
+//int main(){
+//    int flag;
+//    char *temp;
+//    char *str = "thisisadog";
+//    flag = parse_str(str,word);
+//    if(NULL != temp){
+//	printf("str = %s\n",temp);
+//    }
+//    return 0;
+//}
 
-#define OK 1
-#define ERROR 0
-#define TRUE 1
-#define FALSE 0
 
-#define MAXSIZE 20 /* 存储空间初始分配量 */
-
-typedef int Status;/* Status是函数的类型,其值是函数结果状态代码，如OK等 */
-typedef int ElemType;/* ElemType类型根据实际情况而定，这里假设为int */
-
-typedef struct Node {
-	ElemType data;
-	struct Node *next;
-} Node;
-/* 定义LinkList */
-typedef struct Node *LinkList;
-
-/* 初始化顺序线性表 */
-Status InitList(LinkList *L){
-	*L=(LinkList)malloc(sizeof(Node)); /* 产生头结点,并使L指向此头结点 */
-	if (!(*L)){ /* 存储分配失败 */
-		return ERROR;
+#include<stdlib.h>
+#include<stdio.h>
+#include<string.h>
+#define STR_NULL " "
+char *words[] = {"is","a","dog","this","r"};
+typedef struct str_info
+{
+	long addrs;
+	char word[20];
+	struct str_info *next;
+}NodeInfo;
+NodeInfo *parsestr(char *str,NodeInfo *info)
+{
+	int i;
+	int len=5;
+	char *p = NULL;
+	NodeInfo *head = NULL;
+	info = malloc(sizeof(NodeInfo)+1);
+	head = info;
+	if(NULL != info)
+	{
+		memset(info,0,sizeof(NodeInfo)+1);
 	}
-    (*L)->next=NULL; /* 指针域为空 */
-    return OK;
+	for(i=0;i<len;i++)
+	{
+		if(NULL != words[i])
+		p = strstr(str,words[i]);
+		if(NULL != p)
+		{
+			printf("%d\n",p);
+			info->addrs = p;
+			if(NULL != words[i])
+			strcpy(info->word,words[i]);
+			info->next = malloc(sizeof(NodeInfo)+1);
+        		if(NULL != info->next)
+        		{
+                		memset(info->next,0,sizeof(NodeInfo)+1);
+        		}
+			info = info->next;
+		}
+	}
+	info = NULL;
+	return head;
+}
+void print_str(NodeInfo *node)
+{
+	char temp[1024] = {0};
+	while(node != NULL)
+	{
+		printf("%s\n",node->word);
+		strcat(temp,node->word);
+		strcat(temp," ");
+		node = node->next;
+	}
+	printf("temp = %s\n",temp);
+}
+int main()
+{
+	char *str = "thisisadog";
+	NodeInfo info;
+	NodeInfo *head = NULL;
+	NodeInfo *p1= NULL;
+	NodeInfo *p2= NULL;
+	NodeInfo *tp= NULL;
+	head = parsestr(str,&info);
+	print_str(head);
+	for(p1=head;p1!=NULL;p1=p1->next)
+	{
+		for(p2=head;p2!=NULL;p2=p2->next)
+		{
+			if(p1->addrs<p2->addrs)
+			{
+				tp = p1;
+				tp = tp->next;
+				break;
+			}else{
+				tp = p2;
+				tp = tp->next;
+				break;
+			}
+		}
+	}
+	print_str(head);
 }
 
-/* 初始条件：顺序线性表L已存在。操作结果：返回L中数据元素个数 */
-int ListLength(LinkList L){
-    int i=0;
-    LinkList p=L->next; /* p指向第一个结点 */
-    while(p){
-        i++;
-        p=p->next;
-    }
-    return i;
-}
-
-int main(){
-    LinkList L;
-    Status i;
-    i=InitList(&L);
-    printf("链表L初始化完毕，ListLength(L)=%d\n",ListLength(L));
-}
