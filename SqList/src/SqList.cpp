@@ -80,6 +80,9 @@ Status ListDete(SqList *L,int i){
 
 int main(){
 	SqList sq={{0,1,2},3};
-	cout<<ListInsert(&sq,2,5)<<endl;
-	cout<<ListDete(&sq,4)<<endl;
+//	cout<<ListInsert(&sq,2,5)<<endl;
+//	cout<<ListDete(&sq,4)<<endl;
+	int k;
+	GetElem(sq,1,&k);//取值操作，这里取第二个元素
+	cout<<k<<endl;
 }

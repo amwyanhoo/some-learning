@@ -28,6 +28,7 @@ struct node { //单链表的定义
 //	return p;
 //}
 
+//反转链表
 struct node* Reverse(struct node *L) {
 	struct node* current, *p;
 	if (L == NULL) {

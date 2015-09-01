@@ -1,4 +1,5 @@
-#include "stdafx.h"
+#include "stdio.h"
+#include <stdlib.h>
 
 //树的双亲表示法结点结构定义
 //#define  MAX_TREE_SIZE 100
