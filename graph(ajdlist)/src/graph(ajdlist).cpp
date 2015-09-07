@@ -92,7 +92,7 @@ void DFS(GraphAdjList  GL, int i){
 		p = p->next;
 	}
 }
-/*够接求的深度造历操作*/
+//够接求的深度造历操作
 void DFSTraverse(GraphAdjList  GL){
 	int  i;
 	for (i = 0; i < GL.numVertexes; i++)
