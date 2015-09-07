@@ -4,7 +4,6 @@
 	邻接矩阵的优先广度遍历操作
 */
 
-#include "stdafx.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <iostream>
