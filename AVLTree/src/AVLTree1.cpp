@@ -47,14 +47,14 @@ void LeftBalance(BiTree *T){
 	BiTree L, Lr;
 	L = (*T)->lchild;	//L指向T的左子树根结点
 	switch (L->bf){	//检查T的左子树的平衡度，并作相应平衡处理
-		case LH:	//LL情况新结点插入在T的左孩子的左子树上，要作单右旋处理	
+		case LH:	//LL情况,新结点插在T的左孩子的左子树上，做单向右旋处理
 			(*T)->bf = L->bf = EH;
 			R_Rotate(T);
 			break;
-		case RH://LR情况，先子树左旋，再根右旋
+		case RH://LR情况，新结点插在T的左孩子的右子树上，要进行双旋平衡处理（先左后右）
 			Lr = L->rchild;
 			switch (Lr->bf){
-				case LH:
+				case LH:	//插在右子树的左孩子上
 					(*T)->bf = RH;
 					L->bf = EH;
 					break;
@@ -81,12 +81,12 @@ void RightBalance(BiTree *T)
 	switch (rc->bf)
 	{
 	case RH:
-		//新结点插在右孩子的右子树上，进行单向左旋处理  RR
+		//RR情况，新结点插在右孩子的右子树上，进行单向左旋处理
 		(*T)->bf = rc->bf = EH;
 		L_Rotate(T);
 		break;
 	case LH:
-		//RL 新结点插在T的右孩子的左子树上，要进行右平衡旋转处理（先右再左）  
+		//RL情况， 新结点插在T的右孩子的左子树上，要进行右平衡旋转处理（先右再左）
 		ld = rc->lchild;
 		switch (ld->bf)
 		{
@@ -108,6 +108,8 @@ void RightBalance(BiTree *T)
 	}
 }
 
+/*若因为插入而使得二叉排序树失去平衡，则做平衡旋转处理
+  taller反映树是否长高*/
 bool InsertAVL(BiTree *T, int e, bool *taller){
 	if (!*T){
 		//插入新结点，树长高，置taller为true
@@ -125,22 +127,24 @@ bool InsertAVL(BiTree *T, int e, bool *taller){
 			return false;
 		}
 		if (e < (*T)->data){
-			//应继续在T的左子树中进行搜索
+			//继续在T的左子树中进行搜索
 			if (!InsertAVL(&(*T)->lchild, e, taller)){
 				return false;
 			}
 			if (taller){//已插入到T的左子树中且左子树长高，
 				switch ((*T)->bf)
 				{
-				case LH:
+				case LH:	/*插入前左子树高于右子树，需要进行做平衡处理
+                    		不管是单向左旋处理，还是先左后右平衡处理
+                     	 	 处理结果都是使得插入新结点后，树的高度不变*/
 					LeftBalance(T);
 					*taller = false;
 					break;
-				case EH:
+				case EH: //插入前左右子树等高，现在插入新街点后，左子树比右子树高
 					(*T)->bf = LH;
 					*taller = true;
 					break;
-				case RH:
+				case RH: //插入前右子树比左子树高，现在新结点插入左子树后，树变为左右子树等高
 					(*T)->bf = EH;
 					*taller = false;
 					break;
@@ -154,15 +158,15 @@ bool InsertAVL(BiTree *T, int e, bool *taller){
 			if (*taller){
 				switch ((*T)->bf)
 				{
-				case LH:
+				case LH: //插入前左子树比右子树高，现在插入T的右子树后，左右子树等高
 					(*T)->bf = EH;
 					*taller = false;
 					break;
-				case EH:
+				case EH://插入前左右子树等高，现在插入后，右子树比左子树高
 					(*T)->bf = RH;
 					*taller = true;
 					break;
-				case RH:
+				case RH://插入前右子树比坐子树高，插入后，排序树失去平衡，需要进行右平衡处理
 					RightBalance(T);
 					*taller = false;
 					break;
