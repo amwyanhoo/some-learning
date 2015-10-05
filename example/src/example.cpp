@@ -4,15 +4,15 @@
 #include "stdafx.h"
 //
 //
-///*��N�����Ȳ��������飬Ҫ���������Ԫ�ص���ϣ�
-//���磺����1����a,b����Ԫ�أ�����2����c,d,e����Ԫ�أ�
-//�����ac,ad,ae,bc,bd,be*/
+///*有N个长度不定的数组，要求输出所有元素的组合，
+//例如：数组1中有a,b两个元素，数组2中有c,d,e三个元素，
+//则输出ac,ad,ae,bc,bd,be*/
 //
 //
 //
-///*���ݵ��ʷ�ת�ַ��������Ǽ򵥵��ַ�����ת�����ǰ��ո������ַ�����ĵ���
-//���ַ�����ת����������˵�ַ�������ĵ��ʻ��Ǳ���ԭ����˳�������ÿ������
-//�ÿո�ֿ������磺 Here is www.58.com,������ת���Ϊ�� www.58.com is Here*/
+///*根据单词反转字符串并不是简单的字符串反转，而是按照给定的字符串里的单词
+//将字符串倒转过来，就是说字符串里面的单词还是保持原来的顺序，这里的每个单词
+//用空格分开，例如： Here is www.58.com,经过反转后变为： www.58.com is Here*/
 //
 //#include <iostream>
 //#include <stdio.h>
@@ -29,7 +29,7 @@
 ////	restr = str;
 ////	cout << restr << endl;
 ////	int i, j;
-////	for (i = 0, j = len - 1; i<j; i++, j--)//��ת�ַ����ı�׼����
+////	for (i = 0, j = len - 1; i<j; i++, j--)//反转字符串的标准程序！
 ////	{
 ////		char temp = restr[i];
 ////		restr[i] = restr[j];
@@ -44,7 +44,7 @@
 ////			j++;
 ////		k = j + 1;
 ////		j--;
-////		for (; i<j; i++, j--)//��һ���ո�֮ǰ��ת��������ĸ�ٽ��з�ת���Ϳ��Եõ�ԭ����
+////		for (; i<j; i++, j--)//在一个空格之前反转过来的字母再进行反转，就可以得到原单词
 ////		{
 ////			char temp = restr[i];
 ////			restr[i] = restr[j];
@@ -65,12 +65,12 @@
 ////}
 //
 ///**
-//ԭ��: 111225555
-//ѹ���� : 312245
-//ԭ�� : 333AAAbbbb
-//ѹ���� : 333A4b
-//ԭ�� : ASXDCdddddd
-//ѹ���� : 1A1S1X1D1C6d
+//原串: 111225555
+//压缩后 : 312245
+//原串 : 333AAAbbbb
+//压缩后 : 333A4b
+//原串 : ASXDCdddddd
+//压缩后 : 1A1S1X1D1C6d
 //Press any key to continue*/
 //
 //
@@ -100,14 +100,14 @@
 //		if (!p2 || p1 == p2)
 //			break;
 //	}
-//	if (!p2){    //�޻�
-//		len = step;    //��len��¼��������
+//	if (!p2){    //无环
+//		len = step;    //用len记录链表长度
 //		circled = false;
 //		return NULL;
 //	}
-//	else{//�л�
+//	else{//有环
 //		circled = true;
-//		len = 0; //��len��¼ͷ��㵽����ھ���
+//		len = 0; //用len记录头结点到环入口距离
 //		for (p1 = head; p1 != p2; p1 = p1->next, p2 = p2->next, ++len);
 //		return p1;
 //	}
@@ -121,8 +121,8 @@
 //	ListNode* CcleEnt2 = traverse(head2, len2, cc2);
 //
 //	if ((!cc1 && cc2) || (cc1 && !cc2))
-//		return NULL;    //��һ���л���һ���޻�����϶�û�н���
-//	if (len1 > 0 && len2 > 0){    //�����������޻������߶��л����׽ڵ㶼���ڻ���ʱ
+//		return NULL;    //若一个有环，一个无环，则肯定没有交点
+//	if (len1 > 0 && len2 > 0){    //当两链表都无环，或者都有环且首节点都不在环上时
 //		ListNode *st1 = (len1 > len2 ? head1 : head2);
 //		ListNode *st2 = (len1 > len2 ? head2 : head1);
 //		ListNode *cce1 = (len1 > len2 ? CcleEnt1 : CcleEnt2);
@@ -133,8 +133,8 @@
 //			return st1;
 //		return NULL;
 //	}
-//	else{    //len1, len2 ����һ��Ϊ0 ˵������������һ�������Ǵ���������
-//		ListNode *st1 = (len1 == 0 ? head1 : head2); //ѡ���Ǹ�����������head����֤���Ƿ�����һ�������Ļ��ϣ��ڵĻ������ǵ�һ�����㣬���ڵĻ���û�н��㡣
+//	else{    //len1, len2 中有一个为0 说明其中至少有一条链表是纯环链表。
+//		ListNode *st1 = (len1 == 0 ? head1 : head2); //选择那个纯环链表的head，验证它是否在另一个链表的环上，在的话它就是第一个交点，不在的话就没有交点。
 //		ListNode *st2 = (len1 == 0 ? head2 : head1);
 //		ListNode *p = st2->next;
 //		for (; p != st2 && p != st1; p = p->next);
@@ -211,8 +211,8 @@
 //int main(void) {
 //	char i, s[][20] = { "111225555", "333AAAbbbb", "ASXDCdddddd" };
 //	for (i = 0; i < 3; ++i) {
-//		printf("ԭ��: %s\n", s[i]);
-//		printf("ѹ����: %s\n", CompressStr(s[i]));
+//		printf("原串: %s\n", s[i]);
+//		printf("压缩后: %s\n", CompressStr(s[i]));
 //	}
 //	return 0;
 //}
@@ -247,7 +247,7 @@
 //	return 0;
 //}
 
-// �ҳ������г��ִ�������һ���Ԫ��
+// 找出数组中出现次数超过一半的元素
 //int MajorityElement(int *a, int n)
 //{
 //	int k, i;
@@ -313,6 +313,6 @@ int MajorityElement(int *a, int n){
 int main(int argc, char* argv[])
 {
 	int a[] = { 2, 3, 2, 2, 2, 3, 2, 4, 2, 3};
-	cout << "��Ԫ���ǣ�" << MajorityElement(a, sizeof(a) / sizeof(a[0])) << endl;
+	cout << "主元素是：" << MajorityElement(a, sizeof(a) / sizeof(a[0])) << endl;
 	return 0;
 }
