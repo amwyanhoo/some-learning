@@ -11,18 +11,18 @@ typedef int QElemType;
 
 //typedef struct {
 //	QElemType data[MAXSIZE];
-//	int front;  //Í·Ö¸Õë
-//	int rear;  //Î²Ö¸Õë.Èô¶ÓÁÐ²»¿Õ£¬Ö¸Ïò¶ÓÁÐÎ²ÔªËØµÄÏÂÒ»¸öÎ»ÖÃ
+//	int front;  //å¤´æŒ‡é’ˆ
+//	int rear;  //å°¾æŒ‡é’ˆ.è‹¥é˜Ÿåˆ—ä¸ç©ºï¼ŒæŒ‡å‘é˜Ÿåˆ—å°¾å…ƒç´ çš„ä¸‹ä¸€ä¸ªä½ç½®
 //} SqQueue;
 //
-////³õÊ¼»¯Ò»¸ö¿Õ¶ÓÁÐQ
+////åˆå§‹åŒ–ä¸€ä¸ªç©ºé˜Ÿåˆ—Q
 //Status  InitQueue (SqQueue *Q){
 //	Q->front=0;
 //	Q->rear=0;
 //	return  OK;
 //}
 //
-////·µ»ØQµÄÔªËØ¸öÊý£¬Ò²¾ÍÊÇ¶ÓÁÐµÄµ±Ç°³¤¶È
+////è¿”å›žQçš„å…ƒç´ ä¸ªæ•°ï¼Œä¹Ÿå°±æ˜¯é˜Ÿåˆ—çš„å½“å‰é•¿åº¦
 //int  QueueLength (SqQueue  Q) {
 //	return  (Q.rear-Q.front+MAXSIZE)%MAXSIZE;
 //}
@@ -53,15 +53,15 @@ typedef int QElemType;
 //	return OK;
 //}
 
-typedef struct QNode {  //½áµã½á¹¹
+typedef struct QNode {  //ç»“ç‚¹ç»“æž„
 	QElemType data;
 	struct QNode *next;
 } QNode, *QueuePtr;
 typedef struct {
-	QueuePtr front, rear;  //¶ÓÍ·¡¢¶ÓÎ²Ö¸Õë
+	QueuePtr front, rear;  //é˜Ÿå¤´ã€é˜Ÿå°¾æŒ‡é’ˆ
 } LinkQueue;
 
-//Èë¶Ó²Ù×÷
+//å…¥é˜Ÿæ“ä½œ
 Status EnQuene(LinkQueue *Q,QElemType e){
 	QueuePtr qn=(QueuePtr)malloc(sizeof(QueuePtr));
 	qn->data=e;
@@ -71,7 +71,8 @@ Status EnQuene(LinkQueue *Q,QElemType e){
 	return OK;
 }
 
-//³ö¶Ó²Ù×÷
+
+//å‡ºé˜Ÿæ“ä½œ
 Status DeQuene(LinkQueue *Q,QElemType *e){
 	if(Q->front==Q->rear){
 		return ERROR;
